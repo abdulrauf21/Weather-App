@@ -1,0 +1,4 @@
+class WeatherModelByCity{
+  String? name;
+  
+}
