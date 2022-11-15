@@ -24,11 +24,9 @@ class _HomePageState extends State<HomePage> {
   NetworkCall networkCall = NetworkCall();
   Utils utils = Utils();
   Position? position;
-  // Map<String, dynamic> data = {};
   @override
   void initState() {
     Provider.of<WeatherProvider>(context, listen: false).getCurrentWeather();
-
     super.initState();
   }
 
@@ -41,9 +39,16 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               TextField(
+                onSubmitted: (value) {
+                  
+                  // Provider.of<WeatherProvider>(context).getWeatherOfCity(value);
+                },
                 decoration: InputDecoration(hintText: "Enter City name"),
               ),
-              Provider.of<WeatherProvider>(context).isLoading || Provider.of<WeatherProvider>(context).currentWeather.isEmpty
+              Provider.of<WeatherProvider>(context).isLoading ||
+                      Provider.of<WeatherProvider>(context, listen: false)
+                          .currentWeather
+                          .isEmpty
                   ? Center(
                       child: CircularProgressIndicator(),
                     )
@@ -61,13 +66,17 @@ class _HomePageState extends State<HomePage> {
                                   height: 30,
                                 ),
                                 Text(
-                                  convertKelvinToCelcius(Provider.of<WeatherProvider>(context).currentWeather["main"]["temp"]) +
+                                  convertKelvinToCelcius(
+                                          Provider.of<WeatherProvider>(context)
+                                              .currentWeather["main"]["temp"]) +
                                       "°C",
                                   style: TextStyle(
                                       fontSize: 60, color: Colors.white),
                                 ),
                                 Text(
-                                  Provider.of<WeatherProvider>(context, listen: false).currentWeather["weather"][0]["main"],
+                                  Provider.of<WeatherProvider>(context,
+                                          listen: false)
+                                      .currentWeather["weather"][0]["main"],
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 SizedBox(
@@ -80,16 +89,26 @@ class _HomePageState extends State<HomePage> {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                        Provider.of<WeatherProvider>(context, listen: false).currentWeather["name"],
+                                        Provider.of<WeatherProvider>(context,
+                                                listen: false)
+                                            .currentWeather["name"],
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 20),
                                       ),
                                       Text(
                                         convertKelvinToCelcius(
-                                                Provider.of<WeatherProvider>(context, listen: false).currentWeather["main"]["temp_min"]) +
+                                                Provider.of<WeatherProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .currentWeather["main"]
+                                                    ["temp_min"]) +
                                             "°~" +
                                             convertKelvinToCelcius(
-                                                Provider.of<WeatherProvider>(context, listen: false).currentWeather["main"]["temp_max"]) +
+                                                Provider.of<WeatherProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .currentWeather["main"]
+                                                    ["temp_max"]) +
                                             "°",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 16),

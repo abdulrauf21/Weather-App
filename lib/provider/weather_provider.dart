@@ -30,4 +30,9 @@ class WeatherProvider extends ChangeNotifier {
       throw e;
     }
   }
+
+  Future<void> getWeatherOfCity(String city) async{
+    //api call to get weather according to city
+    // after getting data from api set that data to [currentWeather] variable
+  }
 }
