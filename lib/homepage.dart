@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
               TextField(
                 onSubmitted: (value) {
                   
-                  // Provider.of<WeatherProvider>(context).getWeatherOfCity(value);
+                  Provider.of<WeatherProvider>(context, listen: false).getWeatherOfCity(value);
                 },
                 decoration: InputDecoration(hintText: "Enter City name"),
               ),

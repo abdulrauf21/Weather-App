@@ -17,7 +17,7 @@ class NetworkCall {
     }
   }
 
-  getWeatherByCity(String cityName) async {
+  Future<Map<String, dynamic>> getWeatherByCity(String cityName) async {
     final url = Uri.parse(
         "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=823cc1f8c55ee2ea9ebebb5c2296c086");
 
@@ -27,7 +27,7 @@ class NetworkCall {
       final Map<String, dynamic> decodeResult = jsonDecode(response.body);
       return decodeResult;
     } else {
-      return "Error";
+      throw "Error";
     }
   }
 }

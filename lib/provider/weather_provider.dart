@@ -18,7 +18,8 @@ class WeatherProvider extends ChangeNotifier {
       notifyListeners();
       Position position = await utils.determinePosition();
       log(position.toString());
-      currentWeather = await networkCall.getWeather(position.latitude, position.longitude);
+      currentWeather =
+          await networkCall.getWeather(position.latitude, position.longitude);
       isLoading = false;
       notifyListeners();
       return currentWeather;
@@ -31,8 +32,21 @@ class WeatherProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getWeatherOfCity(String city) async{
+  Future<void> getWeatherOfCity(String city) async {
     //api call to get weather according to city
     // after getting data from api set that data to [currentWeather] variable
+
+    try {
+      isLoading = true;
+      notifyListeners();
+      currentWeather = await networkCall.getWeatherByCity(city);
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: e.toString(),
+        backgroundColor: Colors.red,
+      );
+    }
   }
 }
